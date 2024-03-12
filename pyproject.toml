@@ -5,7 +5,9 @@ description = "Convert a mht file for Microsoft Teams Wiki into markdown format"
 authors = [
     { name = "Tsunenobu Kai", email = "kai2nenobu@gmail.com" }
 ]
-dependencies = []
+dependencies = [
+    "beautifulsoup4>=4.5",
+]
 readme = "README.md"
 requires-python = ">= 3.6"
 
