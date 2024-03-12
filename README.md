@@ -1,3 +1,3 @@
 # convert-teams-wiki
 
-Describe your project here.
+`convert-teams-wiki` converts a mht file for Microsoft Teams Wiki into markdown format.

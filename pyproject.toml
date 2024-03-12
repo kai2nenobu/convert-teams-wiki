@@ -1,7 +1,7 @@
 [project]
 name = "convert-teams-wiki"
-version = "0.1.0"
-description = "Add your description here"
+version = "0.0.1"
+description = "Convert a mht file for Microsoft Teams Wiki into markdown format"
 authors = [
     { name = "Tsunenobu Kai", email = "kai2nenobu@gmail.com" }
 ]
