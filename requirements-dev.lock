@@ -10,5 +10,25 @@
 -e file:.
 beautifulsoup4==4.12.3
     # via convert-teams-wiki
+colorama==0.4.6
+    # via pytest
+exceptiongroup==1.2.0
+    # via pytest
+importlib-metadata==6.7.0
+    # via pluggy
+    # via pytest
+iniconfig==2.0.0
+    # via pytest
+packaging==24.0
+    # via pytest
+pluggy==1.2.0
+    # via pytest
+pytest==7.4.4
 soupsieve==2.4.1
     # via beautifulsoup4
+tomli==2.0.1
+    # via pytest
+typing-extensions==4.7.1
+    # via importlib-metadata
+zipp==3.15.0
+    # via importlib-metadata
