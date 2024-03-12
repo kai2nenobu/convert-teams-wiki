@@ -10,5 +10,5 @@
 -e file:.
 beautifulsoup4==4.12.3
     # via convert-teams-wiki
-soupsieve==2.5
+soupsieve==2.4.1
     # via beautifulsoup4

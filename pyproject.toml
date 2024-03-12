@@ -9,7 +9,7 @@ dependencies = [
     "beautifulsoup4>=4.5",
 ]
 readme = "README.md"
-requires-python = ">= 3.6"
+requires-python = ">= 3.8"
 
 [project.scripts]
 "convert-teams-wiki" = "convert_teams_wiki:main"
