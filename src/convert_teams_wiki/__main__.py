@@ -1,4 +1,5 @@
 import convert_teams_wiki
-import sys
 
-sys.exit(convert_teams_wiki.main())
+
+if __name__ == '__main__':
+    convert_teams_wiki.cli_main()
