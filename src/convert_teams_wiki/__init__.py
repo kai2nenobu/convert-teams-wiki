@@ -132,6 +132,8 @@ class MarkdownConverter:
         elif tag.name == 'td':
             self._context.next_column_index()
             return f'{self._convert_contents(tag).strip()} | '
+        elif tag.name == 'img':
+            return self._convert_img(tag)
         else:
             return f'<<<CANNOT CONVERT {tag.name}>>>'
 
@@ -211,6 +213,18 @@ threadId: {html.attrs["data-threadid"]}
             separator = ''
         return separator + '| ' + self._convert_contents(tr) + '\n'
 
+    def _convert_img(self, img: Tag):
+        if 'data-preview-src' in img.attrs:
+            src = img.attrs['data-preview-src']
+            # "data-preview-src" attribute is a string like below.
+            # "/sites/msteams_1b3d5f/Teams Wiki Data/General/img-123-fe3028d38dc34d1e94b6cd350d0f9941.png"
+            # Last entry "img-123-fe3028d38dc34d1e94b6cd350d0f9941.png" is a image file stored in
+            # "Teams Wiki Data" folder, so link it as embedded image.
+            url = src.split('/')[-1]
+        else:
+            # Preserve original "src" attrribute
+            url = img.attrs['src']
+        return f'![]({url})'
 
 def cli_main():
     logging.basicConfig(level=logging.INFO, stream=sys.stderr)
