@@ -10,9 +10,28 @@ dependencies = [
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
+license = { file = "LICENSE" }
+keywords = ["markdown", "teams", "wiki"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[project.urls]
+Homepage = "https://github.com/kai2nenobu/convert-teams-wiki"
+Repository = "https://github.com/kai2nenobu/convert-teams-wiki"
+Issues = "https://github.com/kai2nenobu/convert-teams-wiki/issues"
+Changelog = "https://github.com/kai2nenobu/convert-teams-wiki/blob/main/CHANGELOG.md"
 
 [project.scripts]
-"convert-teams-wiki" = "convert_teams_wiki:main"
+"convert-teams-wiki" = "convert_teams_wiki:cli_main"
 
 [build-system]
 requires = ["hatchling"]
