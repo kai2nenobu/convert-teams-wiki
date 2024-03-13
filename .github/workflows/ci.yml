@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: "${{ matrix.OS }}"
+    strategy:
+      matrix:
+        OS: [ubuntu-22.04, macos-12, windows-2022]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install rye
+        uses: eifinger/setup-rye@v2
+        if: runner.os != 'windows'
+      - uses: MinoruSekine/setup-scoop@v3
+        if: runner.os == 'windows'
+      - name: Install rye
+        run: scoop install rye
+        if: runner.os == 'windows'
+      - uses: actions/setup-python@v5
+        id: setup-python
+        with:
+          # Set up multiple python versions
+          python-version: |
+            3.12
+            3.11
+            3.10
+            3.9
+            3.8
+      - name: Install dependencies
+        run: rye sync
+      - name: Test by tox
+        run: rye run tox --skip-missing-interpreters false
