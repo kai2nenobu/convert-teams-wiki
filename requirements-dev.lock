@@ -10,18 +10,41 @@
 -e file:.
 beautifulsoup4==4.12.3
     # via convert-teams-wiki
+cachetools==5.3.3
+    # via tox
+chardet==5.2.0
+    # via tox
 colorama==0.4.6
     # via pytest
+    # via tox
+distlib==0.3.8
+    # via virtualenv
 exceptiongroup==1.2.0
     # via pytest
+filelock==3.13.1
+    # via tox
+    # via virtualenv
 iniconfig==2.0.0
     # via pytest
 packaging==24.0
+    # via pyproject-api
     # via pytest
+    # via tox
+platformdirs==4.2.0
+    # via tox
+    # via virtualenv
 pluggy==1.4.0
     # via pytest
+    # via tox
+pyproject-api==1.6.1
+    # via tox
 pytest==7.4.4
 soupsieve==2.4.1
     # via beautifulsoup4
 tomli==2.0.1
+    # via pyproject-api
     # via pytest
+    # via tox
+tox==4.14.1
+virtualenv==20.25.1
+    # via tox
