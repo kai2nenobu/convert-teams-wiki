@@ -41,4 +41,4 @@ jobs:
       - name: Install dependencies
         run: rye sync
       - name: Test by tox
-        run: rye run tox --skip-missing-interpreters false
+        run: rye run tox --skip-missing-interpreters false --parallel --parallel-no-spinner --parallel-live
