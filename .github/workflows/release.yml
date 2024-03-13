@@ -1,0 +1,49 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  release:
+    types: [published]
+
+jobs:
+  build:
+    name: Build a package
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 100
+          # When event is 'release', fetching tag is not required
+          fetch-tags: ${{ github.event_name != 'release' }}
+      - uses: actions/checkout@v4
+      - name: Install rye
+        uses: eifinger/setup-rye@v2
+      - name: Build
+        run: rye build
+      - name: Archive a package
+        uses: actions/upload-artifact@v4
+        with:
+          name: package
+          path: dist/
+  publish:
+    name: Publish a package to PyPI
+    runs-on: ubuntu-22.04
+    needs: [build]
+    if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
+    environment:
+      name: pypi
+      url: https://pypi.org/project/convert-teams-wiki/
+    permissions:
+      id-token: write # mandatory for trusted publishing
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: package
+          path: dist/
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
