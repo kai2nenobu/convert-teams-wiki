@@ -24,7 +24,9 @@ jobs:
       - uses: MinoruSekine/setup-scoop@v3
         if: runner.os == 'windows'
       - name: Install rye
-        run: scoop install rye
+        run: |
+          scoop install rye
+          "${env:USERPROFILE}\scoop\persist\rye\shims" >> "$env:GITHUB_PATH"  # add rye into PATH
         if: runner.os == 'windows'
       - uses: actions/setup-python@v5
         id: setup-python
