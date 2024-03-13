@@ -1,3 +1,4 @@
+import argparse
 import logging
 import sys
 
@@ -72,14 +73,14 @@ class MarkdownConverter:
 
     def _convert(self, content):
         if isinstance(content, Tag):
-            logging.info('%s => %s', type(content), content.name)
+            logger.info('%s => %s', type(content), content.name)
             try:
                 self._context.down_tag(content.name)
                 return self._convert_tag(content)
             finally:
                 self._context.up_tag()
         elif isinstance(content, NavigableString):
-            logging.info('%s => %s', type(content), content)
+            logger.info('%s => %s', type(content), content)
             return str(content).strip()
 
     def _convert_tag(self, tag: Tag):
@@ -173,7 +174,6 @@ tabId: {html.attrs["data-tabid"]}
 slug: {html.attrs["data-slug"]}
 threadId: {html.attrs["data-threadid"]}
 -->
-
 '''
         return metadata + self._convert_contents(html)
 
@@ -227,9 +227,13 @@ threadId: {html.attrs["data-threadid"]}
         return f'![]({url})'
 
 def cli_main():
-    logging.basicConfig(level=logging.INFO, stream=sys.stderr)
-    filename = sys.argv[1]
-    with open(filename, mode='r', encoding='utf-8') as f:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--verbose", action="store_true", help="output logging message")
+    parser.add_argument("file", type=str, help="mhtml file to convert into markdown")
+    args = parser.parse_args(sys.argv[1:])
+
+    logging.basicConfig(level=logging.INFO if args.verbose else logging.WARNING, stream=sys.stderr)
+    with open(args.file, mode='r', encoding='utf-8') as f:
         html_text = f.read()
     soup = BeautifulSoup(html_text, "html.parser")  # HTMLを解析する
 
