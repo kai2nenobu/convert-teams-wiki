@@ -2,7 +2,7 @@
 
 ## [v0.1.2](https://github.com/kai2nenobu/convert-teams-wiki/compare/v0.1.1...v0.1.2) - 2024-03-16
 ### Features
-- feat: add <h2> tag handling by @kai2nenobu in https://github.com/kai2nenobu/convert-teams-wiki/pull/7
+- feat: add `<h2>` tag handling by @kai2nenobu in https://github.com/kai2nenobu/convert-teams-wiki/pull/7
 - feat: add `--version` option by @kai2nenobu in https://github.com/kai2nenobu/convert-teams-wiki/pull/9
 - chore: add a configuration for Dependabot by @kai2nenobu in https://github.com/kai2nenobu/convert-teams-wiki/pull/10
 - chore: fix a wrong version number by @kai2nenobu in https://github.com/kai2nenobu/convert-teams-wiki/pull/11
