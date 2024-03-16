@@ -50,5 +50,8 @@ allow-direct-references = true
 [tool.hatch.build.targets.wheel]
 packages = ["src/convert_teams_wiki"]
 
+[tool.ruff]
+line-length = 120
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]

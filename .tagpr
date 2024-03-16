@@ -39,4 +39,4 @@
 [tagpr]
 	vPrefix = true
 	releaseBranch = main
-	versionFile = pyproject.toml, README.md
+	versionFile = convert_teams_wiki/__init__.py, pyproject.toml, README.md
