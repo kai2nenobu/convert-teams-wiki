@@ -101,7 +101,7 @@ class MarkdownConverter:
         elif tag.name == 'blockquote':
             return f'>{self._convert_contents(tag)}\n'
         elif tag.name == 'pre':
-            # pre配下のタグは読み取らずテキストとして解釈する
+            # don't interpret tags under <pre> tag and use innerText as is
             return f'```\n{tag.text.strip()}\n```\n'
         elif tag.name == 'code':
             return f'`{self._convert_contents(tag)}`'
@@ -149,7 +149,7 @@ class MarkdownConverter:
         href = a.attrs['href']
         text = self._convert_contents(a)
         if href == text:
-            # 表示テキストとURLが一致する場合はURLのみ出力
+            # use URL if URL and label is the same
             return href
         else:
             return f'[{text}]({href})'
@@ -183,15 +183,13 @@ threadId: {html.attrs["data-threadid"]}
 
     def _convert_h3(self, tag: Tag):
         if 'wiki-mht-note' in tag.attrs.get('class', []):
-            # wiki-mht-noteクラスはTeams特有の非表示クラスなので
-            # 特別扱いしてMarkdownに変換しない
+            # ignore "wiki-mht-note" class because it is a hidden element in Teams wiki
             return ''
         return f'### {self._convert_contents(tag)}\n\n'
 
     def _convert_h2(self, tag: Tag):
         if 'wiki-mht-note' in tag.attrs.get('class', []):
-            # wiki-mht-noteクラスはTeams特有の非表示クラスなので
-            # 特別扱いしてMarkdownに変換しない
+            # ignore "wiki-mht-note" class because it is a hidden element in Teams wiki
             return ''
         return f'## {self._convert_contents(tag)}\n\n'
 
@@ -218,7 +216,7 @@ threadId: {html.attrs["data-threadid"]}
 
     def _convert_tr(self, tr: Tag):
         if self._context.is_second_row():
-            # 2行目はヘッダーとボディのセパレーターを入れる
+            # insert a separator in the second row
             separator = '|' + (' --- |' * self._context.table_shape[1]) + '\n'
         else:
             separator = ''
@@ -246,7 +244,7 @@ def cli_main():
     logging.basicConfig(level=logging.INFO if args.verbose else logging.WARNING, stream=sys.stderr)
     with open(args.file, mode='r', encoding='utf-8') as f:
         html_text = f.read()
-    soup = BeautifulSoup(html_text, "html.parser")  # HTMLを解析する
+    soup = BeautifulSoup(html_text, "html.parser")  # parse HTML
 
     # print(soup.prettify())
     html: Tag = soup.html
