@@ -89,7 +89,7 @@ class MarkdownConverter:
         if tag.name == 'html':
             return self._convert_html(tag)
         elif tag.name == 's':
-            return f''
+            return ''
         elif tag.name == 'h1':
             return f'# {self._convert_contents(tag)}\n\n'
         elif tag.name == 'h2':
