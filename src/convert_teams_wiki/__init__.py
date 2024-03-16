@@ -4,7 +4,7 @@ import sys
 
 from bs4 import Tag, NavigableString, BeautifulSoup
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 logger = logging.getLogger(__name__)
 
