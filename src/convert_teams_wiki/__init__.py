@@ -4,6 +4,8 @@ import sys
 
 from bs4 import Tag, NavigableString, BeautifulSoup
 
+__version__ = "0.0.1"
+
 logger = logging.getLogger(__name__)
 
 
@@ -238,10 +240,16 @@ threadId: {html.attrs["data-threadid"]}
 def cli_main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--verbose", action="store_true", help="output logging message")
-    parser.add_argument("file", type=str, help="mhtml file to convert into markdown")
+    parser.add_argument("--version", action="store_true", help="output this program version")
+    parser.add_argument("file", type=str, nargs="?", help="mhtml file to convert into markdown")
     args = parser.parse_args(sys.argv[1:])
 
     logging.basicConfig(level=logging.INFO if args.verbose else logging.WARNING, stream=sys.stderr)
+
+    if args.version:
+        print(__version__)
+        return
+
     with open(args.file, mode='r', encoding='utf-8') as f:
         html_text = f.read()
     soup = BeautifulSoup(html_text, "html.parser")  # parse HTML
