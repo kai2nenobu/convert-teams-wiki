@@ -86,8 +86,12 @@ class MarkdownConverter:
     def _convert_tag(self, tag: Tag):
         if tag.name == 'html':
             return self._convert_html(tag)
+        elif tag.name == 's':
+            return f''
         elif tag.name == 'h1':
             return f'# {self._convert_contents(tag)}\n\n'
+        elif tag.name == 'h2':
+            return self._convert_h2(tag)
         elif tag.name == 'h3':
             return self._convert_h3(tag)
         elif tag.name == 'div':
@@ -183,6 +187,13 @@ threadId: {html.attrs["data-threadid"]}
             # 特別扱いしてMarkdownに変換しない
             return ''
         return f'### {self._convert_contents(tag)}\n\n'
+
+    def _convert_h2(self, tag: Tag):
+        if 'wiki-mht-note' in tag.attrs.get('class', []):
+            # wiki-mht-noteクラスはTeams特有の非表示クラスなので
+            # 特別扱いしてMarkdownに変換しない
+            return ''
+        return f'## {self._convert_contents(tag)}\n\n'
 
     def _convert_br(self):
         if self._context.inside_table():
