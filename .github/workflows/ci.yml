@@ -21,7 +21,7 @@ jobs:
       - name: Install rye
         uses: eifinger/setup-rye@v2
         if: runner.os != 'windows'
-      - uses: MinoruSekine/setup-scoop@v3
+      - uses: MinoruSekine/setup-scoop@v4
         if: runner.os == 'windows'
       - name: Install rye
         run: |
