@@ -19,9 +19,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install rye
-        uses: eifinger/setup-rye@v2
+        uses: eifinger/setup-rye@v4
         if: runner.os != 'windows'
-      - uses: MinoruSekine/setup-scoop@v3
+      - uses: MinoruSekine/setup-scoop@v4
         if: runner.os == 'windows'
       - name: Install rye
         run: |

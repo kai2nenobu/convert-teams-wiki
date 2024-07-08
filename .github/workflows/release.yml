@@ -22,7 +22,7 @@ jobs:
           fetch-tags: ${{ github.event_name != 'release' }}
       - uses: actions/checkout@v4
       - name: Install rye
-        uses: eifinger/setup-rye@v2
+        uses: eifinger/setup-rye@v4
       - name: Build
         run: rye build
       - name: Archive a package
