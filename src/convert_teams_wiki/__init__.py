@@ -101,12 +101,12 @@ class MarkdownConverter:
         elif tag.name == "p":
             return f"{self._convert_contents(tag)}\n"
         elif tag.name == "blockquote":
-            return f">{self._convert_contents(tag)}\n"
+            return f"\n> {self._convert_contents(tag)}\n"
         elif tag.name == "pre":
             # don't interpret tags under <pre> tag and use innerText as is
-            return f"```\n{tag.text.strip()}\n```\n"
+            return f"\n```\n{tag.text.strip()}\n```\n"
         elif tag.name == "code":
-            return f"`{self._convert_contents(tag)}`"
+            return f" `{self._convert_contents(tag)}` "
         elif tag.name == "a":
             return self._convert_a(tag)
         elif tag.name == "span":
@@ -114,11 +114,11 @@ class MarkdownConverter:
         elif tag.name == "u":
             return f"{self._convert_contents(tag)}"
         elif tag.name == "b":
-            return f"**{self._convert_contents(tag)}**"
+            return f" **{self._convert_contents(tag)}** "
         elif tag.name == "em":
-            return f"*{self._convert_contents(tag)}*"
+            return f" *{self._convert_contents(tag)}* "
         elif tag.name == "strong":
-            return f"__{self._convert_contents(tag)}__"
+            return f" __{self._convert_contents(tag)}__ "
         elif tag.name == "br":
             return self._convert_br()
         elif tag.name == "ul":
@@ -141,6 +141,8 @@ class MarkdownConverter:
             return f"{self._convert_contents(tag).strip()} | "
         elif tag.name == "img":
             return self._convert_img(tag)
+        elif tag.name == "font":
+            return self._convert_contents(tag)
         else:
             return f"<<<CANNOT CONVERT {tag.name}>>>"
 
@@ -154,7 +156,7 @@ class MarkdownConverter:
             # use URL if URL and label is the same
             return href
         else:
-            return f"[{text}]({href})"
+            return f" [{text}]({href}) "
 
     def _convert_list(self, tag: Tag):
         try:
@@ -259,7 +261,9 @@ def cli_main():
     html: Tag = soup.html
     converter = MarkdownConverter()
     markdown = converter.convert(html)
-    print(markdown)
+    # fix UnicodeEncodeError: 'charmap' codec can't encode characters in position 2715-2716: character maps to <undefined>
+    # by using sys.stdout.buffer.write() instead of print()
+    sys.stdout.buffer.write(markdown.encode("utf-8"))
 
 
 if __name__ == "__main__":
